@@ -5,3 +5,4 @@ scikit-learn
 requests
 google-api-python-client
 google-generativeai
+gunicorn
