@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I WILL GUIDE YOU | Smart Learning Path Generator</title>
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6c63ff;
+            --primary-dark: #564fd8;
+            --secondary: #8a85ff;
+            --accent: #ff6584;
+            --light: #f8f9fa;
+            --dark: #2d3748;
+            --gray: #6c757d;
+            --success: #4cc9f0;
+            --warning: #f8961e;
+            --danger: #ef476f;
+            --gradient: linear-gradient(135deg, #6c63ff 0%, #8a85ff 100%);
+            --shadow: 0 10px 30px rgba(108, 99, 255, 0.15);
+            --card-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+            --hover-shadow: 0 15px 35px rgba(108, 99, 255, 0.2);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f9fafc;
+            color: var(--dark);
+            padding-bottom: 50px;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+
+        .navbar {
+            background: var(--gradient);
+            box-shadow: var(--shadow);
+            padding: 15px 0;
+        }
+
+        .navbar-brand {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 24px;
+            color: white !important;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-brand span {
+            color: white;
+            background-color: var(--accent);
+            padding: 2px 8px;
+            border-radius: 6px;
+            margin-left: 5px;
+            font-size: 20px;
+        }
+
+        .hero {
+            background: var(--gradient);
+            color: white;
+            padding: 100px 0;
+            margin-bottom: 60px;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="rgba(255,255,255,0.05)" d="M0,0 L100,0 L100,100 L0,100 Z" /></svg>');
+            background-size: cover;
+            transform: rotate(5deg);
+            top: -50%;
+            left: -50%;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .hero-cta {
+            background-color: white;
+            color: var(--primary);
+            border-radius: 30px;
+            padding: 12px 30px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: none;
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            background-color: white;
+            color: var(--primary-dark);
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: var(--card-shadow);
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--gradient);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .feature-card:hover::before {
+            width: 8px;
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(108, 99, 255, 0.1);
+            color: var(--primary);
+            border-radius: 16px;
+            font-size: 28px;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            background: var(--gradient);
+            color: white;
+            transform: rotate(5deg) scale(1.1);
+        }
+
+        .search-container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: var(--shadow);
+            margin-bottom: 60px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-pills .nav-link {
+            padding: 15px 25px;
+            border-radius: 12px;
+            font-weight: 500;
+            color: var(--dark);
+            margin-right: 10px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-pills .nav-link.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 5px 15px rgba(108, 99, 255, 0.3);
+            border-color: var(--primary);
+        }
+
+        .nav-pills .nav-link:not(.active):hover {
+            background: rgba(108, 99, 255, 0.05);
+            border-color: rgba(108, 99, 255, 0.1);
+        }
+
+        .tab-content {
+            padding: 30px 0 0;
+        }
+
+        .search-form {
+            position: relative;
+        }
+
+        .search-input {
+            height: 60px;
+            border-radius: 15px;
+            padding-left: 25px;
+            padding-right: 140px;
+            font-size: 16px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            box-shadow: 0 5px 20px rgba(108, 99, 255, 0.2);
+            border-color: var(--primary);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            height: 50px;
+            border-radius: 12px;
+            padding: 0 30px;
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .search-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(108, 99, 255, 0.3);
+        }
+
+        .video-card {
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+            border: none;
+            box-shadow: var(--card-shadow);
+            position: relative;
+        }
+
+        .video-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1;
+        }
+
+        .video-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .video-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .video-thumbnail {
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px 16px 0 0;
+        }
+
+        .video-thumbnail img {
+            transition: all 0.5s ease;
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .video-card:hover .video-thumbnail img {
+            transform: scale(1.05);
+        }
+
+        .play-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+
+        .play-btn {
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 24px;
+            transform: scale(0.8);
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .video-card:hover .play-overlay {
+            opacity: 1;
+        }
+
+        .video-card:hover .play-btn {
+            transform: scale(1);
+        }
+
+        .video-info {
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+            background: white;
+        }
+
+        .video-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .video-channel {
+            font-size: 14px;
+            color: var(--gray);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .video-channel i {
+            margin-right: 5px;
+            color: var(--accent);
+        }
+
+        .video-stats {
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+            color: var(--gray);
+        }
+
+        .video-stats div {
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .video-stats i {
+            margin-right: 5px;
+            font-size: 12px;
+        }
+
+        .watch-btn {
+            margin-top: 15px;
+            width: 100%;
+            padding: 10px;
+            border-radius: 10px;
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .watch-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(108, 99, 255, 0.3);
+        }
+
+        .watch-btn i {
+            margin-right: 8px;
+        }
+
+        .skill-badge {
+            background: rgba(108, 99, 255, 0.1);
+            color: var(--primary);
+            border-radius: 20px;
+            padding: 8px 15px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            display: inline-flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(108, 99, 255, 0.2);
+        }
+
+        .skill-badge:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(108, 99, 255, 0.2);
+            border-color: var(--primary);
+        }
+
+        .skill-badge i {
+            margin-right: 5px;
+            font-size: 12px;
+        }
+
+        .skill-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: var(--card-shadow);
+            border-top: 5px solid var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="rgba(108, 99, 255, 0.02)" d="M0,0 L100,0 L100,100 L0,100 Z" /></svg>');
+            z-index: 0;
+        }
+
+        .skill-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+            z-index: 1;
+        }
+
+        .skill-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(108, 99, 255, 0.1);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            margin-right: 15px;
+            font-size: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .skill-header:hover .skill-icon {
+            background: var(--gradient);
+            color: white;
+            transform: rotate(5deg);
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+            display: none;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(108, 99, 255, 0.1);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary);
+            text-align: center;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .error-alert {
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            background-color: #FFF5F5;
+            border-left: 4px solid var(--danger);
+            margin-bottom: 30px;
+            display: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .error-icon {
+            margin-right: 15px;
+            color: var(--danger);
+            font-size: 24px;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 0;
+            background: white;
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .no-results i {
+            font-size: 60px;
+            color: var(--gray);
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .no-results h4 {
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+
+        .no-results p {
+            font-size: 16px;
+            color: var(--gray);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .job-skills-container {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .job-skills-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="rgba(108, 99, 255, 0.02)" d="M0,0 L100,0 L100,100 L0,100 Z" /></svg>');
+            z-index: 0;
+        }
+
+        .job-skills-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .job-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(108, 99, 255, 0.1);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            margin-right: 20px;
+            font-size: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .job-skills-header:hover .job-icon {
+            background: var(--gradient);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .progress-container {
+            height: 12px;
+            background: #f0f0f0;
+            border-radius: 6px;
+            margin-bottom: 40px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--gradient);
+            border-radius: 6px;
+            width: 0;
+            transition: width 1s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                90deg,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.3) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .section-title {
+            position: relative;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+
+        /* Floating action button */
+        .fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: var(--gradient);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 10px 30px rgba(108, 99, 255, 0.3);
+            z-index: 99;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .fab:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 15px 40px rgba(108, 99, 255, 0.4);
+            color: white;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 991.98px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .hero {
+                padding: 80px 0;
+            }
+        }
+
+        @media (max-width: 767.98px) {
+            .hero {
+                padding: 60px 0;
+                margin-bottom: 40px;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .search-container {
+                padding: 30px 20px;
+            }
+            
+            .skill-section, .job-skills-container {
+                padding: 25px;
+            }
+            
+            .nav-pills .nav-link {
+                padding: 12px 20px;
+                margin-bottom: 10px;
+                margin-right: 0;
+                width: 100%;
+            }
+            
+            .feature-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 24px;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .search-input {
+                height: 50px;
+                padding-right: 120px;
+                font-size: 14px;
+            }
+            
+            .search-btn {
+                height: 40px;
+                padding: 0 20px;
+                font-size: 14px;
+            }
+            
+            .video-thumbnail img {
+                height: 150px;
+            }
+            
+            .job-icon, .skill-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-compass me-2"></i>I WILL GUIDE YOU<span>AI</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="row align-items-center hero-content">
+                <div class="col-lg-8 mx-auto">
+                    <h1 data-aos="fade-up">Your Personal Learning Guide</h1>
+                    <p data-aos="fade-up" data-aos-delay="100">
+                        Discover the perfect learning path tailored just for you. Our AI-powered system recommends the best resources to help you master any skill or career.
+                    </p>
+                    <button class="btn hero-cta" data-aos="fade-up" data-aos-delay="200">
+                        Start Learning Now <i class="fas fa-arrow-right ms-2"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="container">
+        <div class="search-container" data-aos="fade-up">
+            <ul class="nav nav-pills mb-4" id="searchTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="skill-tab" data-bs-toggle="pill" data-bs-target="#skill-content" type="button" role="tab" aria-controls="skill-content" aria-selected="true">
+                        <i class="fas fa-graduation-cap me-2"></i>Learn a Skill
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="job-tab" data-bs-toggle="pill" data-bs-target="#job-content" type="button" role="tab" aria-controls="job-content" aria-selected="false">
+                        <i class="fas fa-briefcase me-2"></i>Career Path
+                    </button>
+                </li>
+            </ul>
+            
+            <div class="tab-content" id="searchTabsContent">
+                <!-- Skill Search Tab -->
+                <div class="tab-pane fade show active" id="skill-content" role="tabpanel" aria-labelledby="skill-tab">
+                    <form id="skill-form" class="search-form">
+                        <input type="text" class="form-control search-input" id="skill-input" name="skill" placeholder="What skill do you want to learn? e.g., Python, Machine Learning, JavaScript">
+                        <button type="submit" class="btn search-btn"><i class="fas fa-search me-2"></i>Find Resources</button>
+                    </form>
+                </div>
+                
+                <!-- Job Role Search Tab -->
+                <div class="tab-pane fade" id="job-content" role="tabpanel" aria-labelledby="job-tab">
+                    <form id="job-form" class="search-form">
+                        <input type="text" class="form-control search-input" id="job-input" name="job_role" placeholder="What career are you interested in? e.g., Data Scientist, Web Developer, UX Designer">
+                        <button type="submit" class="btn search-btn"><i class="fas fa-search me-2"></i>Create Learning Path</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Error Alert -->
+        <div class="error-alert" id="error-message">
+            <div class="error-icon">
+                <i class="fas fa-exclamation-circle"></i>
+            </div>
+            <div class="error-content">
+                <p class="mb-0" id="error-text">An error occurred. Please try again.</p>
+            </div>
+        </div>
+        
+        <!-- Progress Bar (for job search) -->
+        <div class="progress-container" id="progress-bar-container" style="display: none;">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        
+        <!-- Skill Results -->
+        <div id="skill-results" class="mt-4"></div>
+        
+        <!-- Job Skills and Results -->
+        <div id="job-skills" class="mt-4"></div>
+        <div id="job-results" class="mt-4"></div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="container mt-5" data-aos="fade-up">
+        <h2 class="section-title">Why Choose Our Guide?</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h4>Personalized Learning</h4>
+                    <p>Discover curated content tailored to your specific skills or career goals, optimized for your learning style.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h4>AI-Powered Guidance</h4>
+                    <p>Our advanced AI analyzes thousands of resources to create the perfect learning path just for you.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-route"></i>
+                    </div>
+                    <h4>Career Path Planning</h4>
+                    <p>Map your journey with guided skill recommendations to help you reach your dream career.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="spinner"></div>
+        <p class="loading-text" id="loading-text">Finding the best learning resources...</p>
+    </div>
+
+    <!-- Floating Action Button -->
+    <button class="fab" id="help-button" title="Need help?">
+        <i class="fas fa-question"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize AOS animations
+            AOS.init({
+                duration: 800,
+                once: true
+            });
+            
+            // Skill search form submission
+            document.getElementById('skill-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const skill = document.getElementById('skill-input').value.trim();
+                
+                if (!skill) {
+                    showError('Please enter a skill to search for');
+                    return;
+                }
+                
+                // Clear previous results
+                document.getElementById('skill-results').innerHTML = '';
+                document.getElementById('job-skills').innerHTML = '';
+                document.getElementById('job-results').innerHTML = '';
+                
+                // Update loading text
+                document.getElementById('loading-text').textContent = `Finding the best resources to learn ${skill}...`;
+                
+                showLoading();
+                fetch('/skill_search', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `skill=${encodeURIComponent(skill)}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    hideLoading();
+                    if (data.error) {
+                        showError(data.error);
+                    } else {
+                        displaySkillResults(data);
+                    }
+                })
+                .catch(error => {
+                    hideLoading();
+                    showError('An error occurred while fetching recommendations');
+                    console.error('Error:', error);
+                });
+            });
+            
+            // Job role search form submission
+            document.getElementById('job-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const jobRole = document.getElementById('job-input').value.trim();
+                
+                if (!jobRole) {
+                    showError('Please enter a job role to search for');
+                    return;
+                }
+                
+                // Clear previous results
+                document.getElementById('skill-results').innerHTML = '';
+                document.getElementById('job-skills').innerHTML = '';
+                document.getElementById('job-results').innerHTML = '';
+                
+                // Show progress bar
+                document.getElementById('progress-bar-container').style.display = 'block';
+                document.getElementById('progress-bar').style.width = '0%';
+                
+                // Update loading text
+                document.getElementById('loading-text').textContent = `Creating personalized learning path for ${jobRole}...`;
+                
+                showLoading();
+                
+                // Animate progress bar to 40% (finding skills)
+                setTimeout(() => {
+                    document.getElementById('progress-bar').style.width = '40%';
+                    document.getElementById('loading-text').textContent = `Identifying key skills for ${jobRole}...`;
+                }, 500);
+                
+                fetch('/job_search', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `job_role=${encodeURIComponent(jobRole)}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Animate progress bar to 100% (complete)
+                    document.getElementById('progress-bar').style.width = '100%';
+                    document.getElementById('loading-text').textContent = `Finalizing your learning path...`;
+                    
+                    setTimeout(() => {
+                        hideLoading();
+                        document.getElementById('progress-bar-container').style.display = 'none';
+                        
+                        if (data.error) {
+                            showError(data.error);
+                        } else {
+                            displayJobSkills(data);
+                            displayJobResults(data);
+                            
+                            // Scroll to results
+                            document.getElementById('job-skills').scrollIntoView({
+                                behavior: 'smooth'
+                            });
+                        }
+                    }, 500);
+                })
+                .catch(error => {
+                    hideLoading();
+                    document.getElementById('progress-bar-container').style.display = 'none';
+                    showError('An error occurred while fetching recommendations');
+                    console.error('Error:', error);
+                });
+            });
+            
+            // Display skill search results
+            function displaySkillResults(data) {
+                const resultsContainer = document.getElementById('skill-results');
+                resultsContainer.innerHTML = '';
+                
+                const recommendations = data.recommendations;
+                const skill = data.skill;
+                
+                if (recommendations && recommendations.length > 0) {
+                    const resultsHeader = document.createElement('div');
+                    resultsHeader.className = 'mb-5';
+                    resultsHeader.innerHTML = `
+                        <h2 class="section-title">Top Resources for <span style="color: var(--primary);">${skill}</span></h2>
+                        <p class="text-muted">We've curated the best videos to help you master ${skill}</p>
+                    `;
+                    resultsContainer.appendChild(resultsHeader);
+                    
+                    const row = document.createElement('div');
+                    row.className = 'row';
+                    
+                    recommendations.forEach((video, index) => {
+                        const col = document.createElement('div');
+                        col.className = 'col-lg-4 col-md-6';
+                        col.setAttribute('data-aos', 'fade-up');
+                        col.setAttribute('data-aos-delay', (index * 100).toString());
+                        
+                        const videoId = video.video_id;
+                        const title = video.title;
+                        const channelTitle = video.channel_title;
+                        const viewCount = video.view_count ? parseInt(video.view_count).toLocaleString() : 'N/A';
+                        const likeCount = video.like_count ? parseInt(video.like_count).toLocaleString() : 'N/A';
+                        
+                        col.innerHTML = `
+                            <div class="video-card">
+                                <div class="video-thumbnail">
+                                    <img src="https://img.youtube.com/vi/${videoId}/mqdefault.jpg" alt="${title}">
+                                    <div class="play-overlay">
+                                        <div class="play-btn">
+                                            <i class="fas fa-play"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="video-info">
+                                    <h5 class="video-title">${title}</h5>
+                                    <div class="video-channel">
+                                        <i class="fas fa-user-circle"></i> ${channelTitle}
+                                    </div>
+                                    <div class="video-stats">
+                                        <div>
+                                            <i class="fas fa-eye"></i> ${viewCount} views
+                                        </div>
+                                        <div>
+                                            <i class="fas fa-thumbs-up"></i> ${likeCount} likes
+                                        </div>
+                                    </div>
+                                    <a href="https://www.youtube.com/watch?v=${videoId}" class="btn watch-btn mt-3" target="_blank">
+                                        <i class="fab fa-youtube me-2"></i> Watch Tutorial
+                                    </a>
+                                </div>
+                            </div>
+                        `;
+                        
+                        row.appendChild(col);
+                    });
+                    
+                    resultsContainer.appendChild(row);
+                } else {
+                    resultsContainer.innerHTML = `
+                        <div class="no-results">
+                            <i class="fas fa-search"></i>
+                            <h4>No resources found</h4>
+                            <p>We couldn't find any tutorials for "${skill}". Please try a different search term.</p>
+                        </div>
+                    `;
+                }
+                
+                // Refresh AOS animations
+                AOS.refresh();
+                
+                // Scroll to results
+                resultsContainer.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+            
+            // Display job skills
+            function displayJobSkills(data) {
+                const skillsContainer = document.getElementById('job-skills');
+                skillsContainer.innerHTML = '';
+                
+                const jobRole = data.job_role;
+                const skills = data.skills;
+                
+                if (skills && skills.length > 0) {
+                    const skillsSection = document.createElement('div');
+                    skillsSection.className = 'job-skills-container';
+                    skillsSection.setAttribute('data-aos', 'fade-up');
+                    
+                    const skillsHeader = document.createElement('div');
+                    skillsHeader.className = 'job-skills-header';
+                    skillsHeader.innerHTML = `
+                        <div class="job-icon">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <div>
+                            <h2 class="mb-1">Learning Path for ${jobRole}</h2>
+                            <p class="text-muted mb-0">Master these key skills to become a successful ${jobRole}</p>
+                        </div>
+                    `;
+                    
+                    const skillsContent = document.createElement('div');
+                    skillsContent.className = 'mt-4';
+                    skillsContent.innerHTML = `
+                        <h5 class="mb-3">Essential Skills:</h5>
+                        <div class="skill-badges mb-4">
+                            ${skills.map(skill => `<span class="skill-badge"><i class="fas fa-check-circle"></i>${skill}</span>`).join('')}
+                        </div>
+                        <h5 class="mb-3">Recommended Learning Resources:</h5>
+                        <p>Below you'll find curated resources to help you master each of these skills.</p>
+                    `;
+                    
+                    skillsSection.appendChild(skillsHeader);
+                    skillsSection.appendChild(skillsContent);
+                    skillsContainer.appendChild(skillsSection);
+                } else {
+                    skillsContainer.innerHTML = `
+                        <div class="no-results">
+                            <i class="fas fa-search"></i>
+                            <h4>No skills found</h4>
+                            <p>We couldn't identify key skills for "${jobRole}". Please try a different job title.</p>
+                        </div>
+                    `;
+                }
+                
+                // Refresh AOS animations
+                AOS.refresh();
+            }
+            
+            // Display job results
+            function displayJobResults(data) {
+                const resultsContainer = document.getElementById('job-results');
+                resultsContainer.innerHTML = '';
+                
+                const recommendations = data.recommendations;
+                const jobRole = data.job_role;
+                
+                if (recommendations && Object.keys(recommendations).length > 0) {
+                    Object.keys(recommendations).forEach(skill => {
+                        const videos = recommendations[skill];
+                        
+                        const skillSection = document.createElement('div');
+                        skillSection.className = 'skill-section';
+                        skillSection.setAttribute('data-aos', 'fade-up');
+                        
+                        const skillHeader = document.createElement('div');
+                        skillHeader.className = 'skill-header';
+                        skillHeader.innerHTML = `
+                            <div class="skill-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div>
+                                <h3>${skill}</h3>
+                                <p class="text-muted mb-0">Top resources to help you learn ${skill}</p>
+                            </div>
+                        `;
+                        
+                        const row = document.createElement('div');
+                        row.className = 'row mt-4';
+                        
+                        videos.forEach((video, index) => {
+                            const col = document.createElement('div');
+                            col.className = 'col-lg-4 col-md-6';
+                            col.setAttribute('data-aos', 'fade-up');
+                            col.setAttribute('data-aos-delay', (index * 100).toString());
+                            
+                            const videoId = video.video_id;
+                            const title = video.title;
+                            const channelTitle = video.channel_title;
+                            const viewCount = video.view_count ? parseInt(video.view_count).toLocaleString() : 'N/A';
+                            const likeCount = video.like_count ? parseInt(video.like_count).toLocaleString() : 'N/A';
+                            
+                            col.innerHTML = `
+                                <div class="video-card">
+                                    <div class="video-thumbnail">
+                                        <img src="https://img.youtube.com/vi/${videoId}/mqdefault.jpg" alt="${title}">
+                                        <div class="play-overlay">
+                                            <div class="play-btn">
+                                                <i class="fas fa-play"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="video-info">
+                                        <h5 class="video-title">${title}</h5>
+                                        <div class="video-channel">
+                                            <i class="fas fa-user-circle"></i> ${channelTitle}
+                                        </div>
+                                        <div class="video-stats">
+                                            <div>
+                                                <i class="fas fa-eye"></i> ${viewCount} views
+                                            </div>
+                                            <div>
+                                                <i class="fas fa-thumbs-up"></i> ${likeCount} likes
+                                            </div>
+                                        </div>
+                                        <a href="https://www.youtube.com/watch?v=${videoId}" class="btn watch-btn mt-3" target="_blank">
+                                            <i class="fab fa-youtube me-2"></i> Watch Tutorial
+                                        </a>
+                                    </div>
+                                </div>
+                            `;
+                            
+                            row.appendChild(col);
+                        });
+                        
+                        skillSection.appendChild(skillHeader);
+                        skillSection.appendChild(row);
+                        resultsContainer.appendChild(skillSection);
+                    });
+                } else {
+                    resultsContainer.innerHTML = `
+                        <div class="no-results">
+                            <i class="fas fa-search"></i>
+                            <h4>No resources found</h4>
+                            <p>We couldn't find any tutorials for "${jobRole}". Please try a different search term.</p>
+                        </div>
+                    `;
+                }
+                
+                // Refresh AOS animations
+                AOS.refresh();
+            }
+            
+            // Show loading overlay
+            function showLoading() {
+                document.getElementById('loading-overlay').style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
+            
+            // Hide loading overlay
+            function hideLoading() {
+                document.getElementById('loading-overlay').style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+            
+            // Show error message
+            function showError(message) {
+                const errorElement = document.getElementById('error-message');
+                document.getElementById('error-text').textContent = message;
+                errorElement.style.display = 'flex';
+                
+                // Hide error after 5 seconds
+                setTimeout(() => {
+                    errorElement.style.display = 'none';
+                }, 5000);
+            }
+            
+            // Floating action button click handler
+            document.getElementById('help-button').addEventListener('click', function() {
+                alert("Need help? Just enter what skill you want to learn or what career you're interested in, and our AI will create a personalized learning path for you!");
+            });
+        });
+    </script>
+</body>
+</html>
